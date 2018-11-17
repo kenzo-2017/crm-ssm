@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.crm.mapper.CustomerDao">
+	<!-- 总条数 -->
+	<select id="customerCountByQueryVo" parameterType="QueryVo" resultType="Integer">
+		select count(*) from customer
+		<where>
+			<if test="custName != null">
+				cust_name like "%"#{custName}"%"
+			</if>
+			<if test="custSource != null">
+				and cust_source = #{custSource}
+			</if>
+			<if test="custIndustry != null">
+				and cust_industry = #{custIndustry}
+			</if>
+			<if test="custLevel != null">
+				and cust_level = #{custLevel}
+			</if>
+		</where> 
+	</select>
+	
+	<!-- 分页结果集 -->
+	<select id="selectCustomerListByQueryVo" parameterType="QueryVo" resultType="Customer">
+		select * from customer
+		<where>
+			<if test="custName != null">
+				cust_name like "%"#{custName}"%"
+			</if>
+			<if test="custSource != null">
+				and cust_source = #{custSource}
+			</if>
+			<if test="custIndustry != null">
+				and cust_industry = #{custIndustry}
+			</if>
+			<if test="custLevel != null">
+				and cust_level = #{custLevel}
+			</if>
+		</where> 
+		limit 
+	</select>
+</mapper>
